@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <div class="row">
+        <div style="background-color: rgb(73, 207, 189); height: 93vh;" class="col-md-3">
+            <div>
+                <mat-card class="mt-3">
+                    <form [formGroup]="todoForm">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Novo Quadro</mat-label>
+                            <input formControlName="item" matInput placeholder="Placeholder">
+                            <mat-hint>Add Nome Novo quadro</mat-hint>
+                        </mat-form-field>
+                        <button *ngIf="!habilitarEdicao" (click)="addAtividade()" mat-raised-button
+                            [disabled]="todoForm.invalid" color="primary">Novo</button>
+                        <button *ngIf="habilitarEdicao" (click)="updateAtividade()" mat-raised-button
+                            [disabled]="todoForm.invalid" color="primary">Atualizar</button>
+                    </form>
+                </mat-card>
+            </div>
+
+        </div>
+
+        <div class="col-md-9 mt-3">
+            <div cdkDropListGroup>
+                <div class="row">
+                    <div class="col-md-4">
+                        <!-- a fazer -->
+                        <div class="example-container">
+                            <h2 class="titulo-card">A fazer  <span *ngIf="atividade.length > 0">  - {{atividade.length}}</span> </h2>
+
+                            <div cdkDropList [cdkDropListData]="atividade" class="example-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="example-box" *ngFor="let item of atividade; let i = index" cdkDrag>
+                                    {{item.descricao}}
+                                    <div class="box">
+                                        <button mat-icon-button color="warn" (click)="deleteAtivadade(i)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="primary" (click)="editar(item, i)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- em progresso -->
+                        <div class="example-container">
+                            <h2 class="titulo-card">Em Progresso <span *ngIf="emprogresso.length > 0">  - {{emprogresso.length}}</span> </h2>
+
+                            <div cdkDropList [cdkDropListData]="emprogresso" class="example-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="example-box" *ngFor="let item of emprogresso; let i = index" cdkDrag>
+                                    {{item.descricao}}
+                                    <div class="box">
+                                        <button mat-icon-button color="warn" (click)="deleteAtivadadeEmProgresso(i)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- finalizado -->
+                        <div class="example-container">
+                            <h2 class="titulo-card" >Finalizado <span *ngIf="atvFinalizado.length > 0"> - {{atvFinalizado.length}}</span> </h2>
+
+                            <div cdkDropList [cdkDropListData]="atvFinalizado" class="example-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="example-box" *ngFor="let item of atvFinalizado; let i = index" cdkDrag>
+                                    {{item.descricao}}
+                                    <div class="box">
+                                        <button mat-icon-button color="warn" (click)="deleteAtivadade(i)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="accent">
+                                            <mat-icon>check_circle</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
